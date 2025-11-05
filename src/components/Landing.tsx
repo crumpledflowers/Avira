@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Play, Home, ShoppingCart, Server, Trophy, Users, Package, Map, Settings, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -10,13 +11,13 @@ export const Landing = ({ onPlayClick }: LandingProps) => {
   const [selectedServer, setSelectedServer] = useState("NA East");
 
   const sidebarItems = [
-    { icon: Home, label: "HUB" },
-    { icon: ShoppingCart, label: "STORE" },
-    { icon: Server, label: "SERVERS" },
-    { icon: Trophy, label: "QUESTS" },
-    { icon: Users, label: "FRIENDS" },
-    { icon: Package, label: "INVENTORY" },
-    { icon: Map, label: "MAP" },
+    { icon: Home, label: "HUB", path: "/" },
+    { icon: ShoppingCart, label: "STORE", path: "/" },
+    { icon: Server, label: "SERVERS", path: "/" },
+    { icon: Trophy, label: "LEADERBOARD", path: "/leaderboard" },
+    { icon: Users, label: "FRIENDS", path: "/" },
+    { icon: Package, label: "INVENTORY", path: "/" },
+    { icon: Map, label: "MAP", path: "/" },
   ];
 
   const regions = ["NA East", "NA West", "EU", "Asia", "South America"];
@@ -47,14 +48,15 @@ export const Landing = ({ onPlayClick }: LandingProps) => {
       {/* Left Sidebar */}
       <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-10">
         {sidebarItems.map((item, index) => (
-          <Button
-            key={index}
-            variant="secondary"
-            className="w-32 justify-start gap-3 bg-card/90 hover:bg-card border border-border shadow-lg"
-          >
-            <item.icon className="w-5 h-5" />
-            <span className="font-bold text-sm">{item.label}</span>
-          </Button>
+          <Link key={index} to={item.path}>
+            <Button
+              variant="secondary"
+              className="w-32 justify-start gap-3 bg-card/90 hover:bg-card border border-border shadow-lg hover:shadow-primary/30 transition-all"
+            >
+              <item.icon className="w-5 h-5" />
+              <span className="font-bold text-sm">{item.label}</span>
+            </Button>
+          </Link>
         ))}
       </div>
 
